@@ -27,7 +27,7 @@
         max-width: 520px;
         width: 100%;
         height: 520px;
-        background: url('./assets/bg-img.png') no-repeat center/cover;
+        background: url('./assets/bg-img.webp') no-repeat center/cover;
         overflow: hidden;
         border-radius: 50%;
       }
@@ -135,7 +135,7 @@
   <body>
     <div class="frame-main" id="downloadframe">
       <div class="top-img">
-        <img src="./assets/empact-img.png" alt="Top Banner" />
+        <img src="./assets/empact-img.webp" alt="Top Banner" />
       </div>
 
       <div class="hexagon-border">
@@ -164,11 +164,11 @@
     const topImg = new Image();
     const profileImg = new Image();
 
-    bg.src = "./assets/bg-img.png";
-    topImg.src = "./assets/empact-img.png";
+    bg.src = "./assets/bg-img.webp";
+    topImg.src = "./assets/empact-img.webp";
     profileImg.src = document.getElementById("profileImage").src;
 
-    bg.onload = () => {
+    bg.onload = () => {git
       ctx.drawImage(bg, 0, 0, w, h);
 
       topImg.onload = () => {
