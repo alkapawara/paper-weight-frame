@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hexagon Border Download</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      background: #f5f5f5;
+      padding: 40px;
+    }
+
+    /* Outer wrapper for visible border */
+    .hexagon-border {
+      position: relative;
+      width: 210px;
+      height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(45deg, #00aaff, #0088cc);
+      clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+      padding: 5px; /* visible border size */
+      box-sizing: border-box;
+    }
+
+    .hexagon-inner {
+      width: 100%;
+      height: 100%;
+      clip-path: inherit;
+      overflow: hidden;
+      background: #ccc;
+    }
+
+    .hexagon-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    button {
+      background: #00aaff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hexagon-border">
+    <div class="hexagon-inner">
+      <img id="profileImage" src="https://picsum.photos/400" alt="Profile">
+    </div>
+  </div>
+
+  <input type="file" id="upload" accept="image/*">
+  <button id="downloadBtn">Download Hexagon</button>
+
+  <canvas id="canvas" width="480" height="520" style="display:none;"></canvas>
+
+  <script>
+    const upload = document.getElementById("upload");
+    const img = document.getElementById("profileImage");
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    upload.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => (img.src = reader.result);
+        reader.readAsDataURL(file);
+      }
+    });
+
+    document.getElementById("downloadBtn").addEventListener("click", () => {
+      const w = canvas.width;
+      const h = canvas.height;
+      const borderWidth = 30; // controls outer border size
+      const pad = borderWidth / 1.5; // extra spacing around hexagon
+
+      ctx.clearRect(0, 0, w, h);
+
+      // define hexagon points (with padding)
+      const hexPoints = [
+        [w / 2, 0 + pad],
+        [w - pad, h * 0.25],
+        [w - pad, h * 0.75],
+        [w / 2, h - pad],
+        [pad, h * 0.75],
+        [pad, h * 0.25]
+      ];
+
+      // Outer border
+      ctx.beginPath();
+      hexPoints.forEach(([x, y], i) => (i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)));
+      ctx.closePath();
+      ctx.lineWidth = borderWidth;
+      ctx.strokeStyle = "#00aaff";
+      ctx.stroke();
+
+      // Clip for image
+      ctx.save();
+      ctx.beginPath();
+      hexPoints.forEach(([x, y], i) => (i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)));
+      ctx.closePath();
+      ctx.clip();
+
+      const image = new Image();
+      image.crossOrigin = "anonymous";
+      image.src = img.src;
+      image.onload = () => {
+        ctx.drawImage(image, pad, pad, w - pad * 2, h - pad * 2);
+        ctx.restore();
+
+        const link = document.createElement("a");
+        link.download = "hexagon-border-image.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      };
+    });
+  </script>
+
+</body>
+</html>

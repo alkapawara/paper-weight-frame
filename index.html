@@ -1,396 +1,210 @@
-
-
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hexagon Frame - Perfect Match</title>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-   
-<link rel="stylesheet" href="style.css?v=12">
- <link rel="stylesheet" href="https://brandspine.in/imageCrop/dist/rcrop.min.css" >
- <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.css"
-    />
-    <title>T2C & TRIO</title>
     <style>
-        @font-face {
-            font-family: 'myfont';
-            src: url('./assets/MyriadPro-Bold_1.otf');
-        }
+           @font-face {
+        font-family: 'myfont';
+        src: url('./assets/MyriadPro-Bold_1.otf');
+      }
       body {
-         padding: 0;
-         box-sizing: border-box;
-         margin: 0;
-          background-color: transparent;
-         /*height: 100vh;*/
-         width: 100%;
-         display: flex;
-         justify-content: center;
-         align-items: center;
-         flex-direction: column;
-         gap: 20px;
-         font-family: 'myfont';
-     }
+        margin: 0;
+        padding: 0;
+        background: #e8f3f0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        font-family: 'myfont';
+      }
 
-img#image-3 {
-    display: none;
-}
+      .frame-main {
+        position: relative;
+        width: 520px;
+        height: 520px;
+        background: url('./assets/bg-img.png') no-repeat center/cover;
+        overflow: hidden;
+        border-radius: 50%;
+      }
 
-img#image-3 {
-    display: none;
-}
+      .top-img img {
+        width: 260px;
+        position: absolute;
+        top: 12%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
 
-/* .circul-box-fr5 {
-    height: 34%;
-    width: 34%;
-    position: absolute;
-    top: 12%;
-    border-radius: 0%;
-    border: none;
-}
-.circul-subox-fr5 img
- {
-  
-    border: none;
-} */
-.fr5-title {
-    position: absolute;
-    bottom: 7%;
-    top: auto;
-    bottom: 12% !important;
-    text-align: center;
-    font-size: clamp(12px, 2vw, 15px);
-    text-transform: capitalize;
-    color: #ffff;
-    line-height: 1.8rem;
-}
+      /* ✅ Same shape hexagon */
+      .hexagon-border {
+        position: absolute;
+        top: 31%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 200px;
+        height: 210px;
+        background: linear-gradient(45deg, #33917e, #33917e);
+        clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        box-sizing: border-box;
+      }
 
-.fr5-title h3 {
-    font-size: clamp(1.5rem, 4vw, 2.02rem); /* responsive heading */
-    font-weight: 700;
-    text-transform: capitalize;
-    color: #ffff;
-    margin-bottom: -4px;
-    font-family: 'myfont';
-}
-
-/* .circul-subox-fr5 img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 0%;
-    object-fit: fill;
-    object-fit: cover;
-    object-position: 0% 0%;
-    border: 4px solid #EBA4B9;
-    top: 0%;
-    padding: 12px;
-} */
-/* .circul-box-fr5 {
-
-    position: absolute;
-    top: 34%;
-    border-radius: 0%;
-    border: none;
-} */
-.top-img {
-    position: absolute;
-    top: 12%;
-    width: 260px;
-}
-.top-img img {
-    width: 100%;
-    /* width: 275px; */
-}
-
-/* .circul-box-fr5 {
-    position: absolute;
-    top: 28%;
- 
-    border: none;
-}
-
-.circul-box-fr5 {
-    height: 43%;
-    width: 43%;
-    position: absolute;
-    top: 12%;
-    border-radius: 0%;
-    border: none;
-} */
-
-.circul-box-fr6 {
-      width: 186px;
-    height: 186px;
-    position: absolute;
-    top: 30%;
-    /* clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); */
-    overflow: hidden;
-}
-.circul-subox-fr3 {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-image: url('./assets/boreder-img.png');
-}
-
-
-
-
-
-
-
-
-
-
-
-.circul-box-fr6 {
-    width: 186px;
-    height: 210px;
-    position: absolute;
-    top: 31%;
-    /* clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); */
-    overflow: hidden;
-}
-
-
-
-.circul-subox-fr3 {
-    position: absolute;
-    width: inherit;
-    height: inherit;
-    /* background-image: url(./assets/boreder-img.png); */
-    overflow: hidden;
-    background-size: contain;
-    background-repeat: no-repeat;
-    /* border: 38px solid; */
-    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 29%);
+      .hexagon-inner {
+        width: 100%;
+        height: 100%;
+        clip-path: inherit;
+        overflow: hidden;
         background: #33917e;
-    /* outline: 2px solid red; */
-    box-shadow: 12px 2px 7px 9px #33917e;
-}
+      }
 
+      .hexagon-inner img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
 
-img#custom-preview-wrapper {
-    width: 96%;
-    height: 96%;
-    /* margin: auto; */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-
-
-    transform: translate(-50%, -50%);
-    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 29%);
-
-    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 29%);
- 
-}
-button.btn.btn-primary {
-    background-color: #33917e;
-    border: none;
-    font-family: 'arialBold';
-    border: 1px solid white;
-    /* filter: drop-shadow(1px 0px 1px #1D74BB); */
-    box-shadow: 0px 0px 0px 2px #38b79d;
-    border-radius: 6px;
-}
-@media (max-width: 768px) {
-    .fr5-title {
-        font-size: 14px;
-    }
-  .fr5-title h3 {
-        font-size: 2.1rem;
-    }
-
-.fr5-title
- {
+      .fr5-title {
         position: absolute;
-        top: 78%;
+        bottom: 15%;
         text-align: center;
-        font-size: clamp(12px, 2vw, 15px);
-        text-transform: capitalize;
-        color: #733b3b;
-        line-height: 1.8rem;
-    }
-}
-@media (max-width: 480px) {
-    .fr5-title {
-        font-size: 12px;
-        line-height: 1rem;
-    }
-    .fr5-title h3 {
-        font-size: 1.2rem;
-    }
-    .top-img{
-    top: 12%;
-    width: 160px;
-}
-.circul-box-fr6
- {
-    width: 120px;
-    height: 127px;
-    top: 30%;
+        width: 100%;
+        color: #fff;
+      }
 
-}
-.fr5-title {
-        position: absolute;
-        top: 79%;
-        text-align: center;
-        font-size: clamp(12px, 2vw, 15px);
-        text-transform: capitalize;
-        color: #733b3b;
-        line-height: 1.8rem;
-    }
-}
+      .fr5-title h3 {
+        font-size: 1.8rem;
+        margin: 0;
+      }
 
-       </style>
+      button {
+        background: #33917e;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #2a7a67;
+      }
+    </style>
   </head>
 
   <body>
+    <div class="frame-main" id="downloadframe">
+      <div class="top-img">
+        <img src="./assets/empact-img.png" alt="Top Banner" />
+      </div>
 
-<div class="frame-main" id="downloadframe">
-  <div class="frame2" >
-    <img src="./assets/bg-img.png" class="frame-bg-main"/>
-   
-    <div class="top-img">
-        <img src="./assets/empact-img.png" alt="">
-    </div>
-    <div class="circul-box-fr6">
-        <div class="circul-subox-fr3" id="img">
-            <!-- <img src="./assets/boreder-img.png" alt=""> -->
-            <img src="./assets/a.jpg" id="custom-preview-wrapper">
-        </div>
-        </div>
-    <div class="fr5-title">
-        <h3><span>Gagan Bansode</span></h3>
-        
-    </div>
-    
-    
-    </div>
-</div>
-<button id="download" class="btn btn-primary"> Preview</button>
-
-<button id="crop-result" class="btn btn-primary">Crop Image</button>
- <div class="demo">
-        <div class="image-wrapper" id="image-cropper">
-          <img
-            id="image-3"
-            src="./upload/251030040011-GaganBansode.jpg"
-            style="width:300px;height:300px"
-          />
-          <!--<div id="custom-preview-wrapper"></div>-->
+      <div class="hexagon-border">
+        <div class="hexagon-inner">
+          <img id="profileImage" src="./assets/a.jpg" alt="Profile" />
         </div>
       </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
- <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        var el = document.getElementById("image-cropper");
-        var croppieObj = new Croppie(el, {
-          viewport: { width: 200, height: 200, type: "circle" }, // Crop area
-          boundary: { width: 300, height: 300 }, // Container size
-          showZoomer: true,
-          enableOrientation: true,
-        });
+      <div class="fr5-title">
+        <h3>Gagan Bansode</h3>
+      </div>
+    </div>
 
-        // Bind an image to Croppie
-        croppieObj.bind({
-          url: "./upload/251030040011-GaganBansode.jpg", // Replace with the path to your image
-          // Optional: specify zoom, orientation (rotation), etc.
-        });
+    <button id="save-frame">Save Frame</button>
+    <canvas id="canvas" width="520" height="520" style="display: none"></canvas>
 
-        document
-          .getElementById("crop-result")
-          .addEventListener("click", function () {
-            croppieObj
-              .result({
-                type: "canvas",
-               size: "original",
-                 quality: 1
-              })
-              .then(function (resp) {
-                var img = new Image();
-                img.src = resp;
-                document.getElementById("img").innerHTML = "";
-                document.getElementById("img").appendChild(img);
-              });
-          });
-      });
-    </script>
-   
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
-    <!-- Optional JavaScript; choose one of the two! -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+ <script>
+  document.getElementById("save-frame").addEventListener("click", function () {
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    const w = canvas.width;
+    const h = canvas.height;
 
-<script>
+    const bg = new Image();
+    const topImg = new Image();
+    const profileImg = new Image();
 
-  function uploadImage(imageData) {
-            // console.log(imageData);
-            Swal.fire({
-  title: "Please wait...",
-  showConfirmButton: false,
-  allowOutsideClick: false, // Disables closing the modal by clicking outside of it
-  allowEscapeKey: false
-});
-            $.ajax({
-                url: './upload.php',
-                type: 'POST',
-                data: { imageData: imageData,id:"1516" },
-                dataType: 'text',
-                success: function(response) {
-                    console.log(response); // Handle the response from server
-                    Swal.fire({
-  title: "Thank You",
-  icon: "success",
-});
-window.location.href = './frame-download.php?id=1516'; 
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error:', error);
-                }
-            });
-        }
-        
-  setUpDownloadPageAsImage();
+    bg.src = "./assets/bg-img.png";
+    topImg.src = "./assets/empact-img.png";
+    profileImg.src = document.getElementById("profileImage").src;
 
-  function setUpDownloadPageAsImage() {
-    document.getElementById("download").addEventListener("click", function () {
-      html2canvas(document.querySelector("#downloadframe"), {
-                scale: 4, // Adjust scale factor to increase image quality and size
-                useCORS: true // This is important if you're capturing content with external resources
-            }).then(function (canvas) {
-        simulateDownloadImageClick(canvas.toDataURL(), Math.random() * 1000000 + '.png');
-      });
-    });
-  }
+    bg.onload = () => {
+      ctx.drawImage(bg, 0, 0, w, h);
 
-  function simulateDownloadImageClick(uri, filename) {
-      uploadImage(uri)
-  }
+      topImg.onload = () => {
+        // ✅ Keep exact image ratio like browser
+        const impactWidth = 260;
+        const impactHeight = (topImg.height / topImg.width) * impactWidth;
+        const impactX = (w - impactWidth) / 2;
+        const impactY = h * 0.12;
+        ctx.drawImage(topImg, impactX, impactY, impactWidth, impactHeight);
 
-  function clickLink(link) {
-    link.click();
-  }
+        // ✅ Slightly lower hexagon to match browser (was 0.47 before)
+        const hexX = w / 2;
+        const hexY = h * 0.51; // move it a bit lower
+        const hexW = 200;
+        const hexH = 210;
+        const border = 5;
 
-  function accountForFirefox(click) { // wrapper function
-    let link = arguments[1];
-    document.body.appendChild(link);
-    click(link);
-    document.body.removeChild(link);
-  }
+        // ✅ Draw hexagon border
+        const hexPoints = [
+          [hexX, hexY - hexH / 2],
+          [hexX + (hexW * 0.45), hexY - (hexH * 0.25)],
+          [hexX + (hexW * 0.45), hexY + (hexH * 0.25)],
+          [hexX, hexY + hexH / 2],
+          [hexX - (hexW * 0.45), hexY + (hexH * 0.25)],
+          [hexX - (hexW * 0.45), hexY - (hexH * 0.25)],
+        ];
 
+        ctx.beginPath();
+        hexPoints.forEach(([x, y], i) =>
+          i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)
+        );
+        ctx.closePath();
+        ctx.strokeStyle = "#33917e";
+        ctx.lineWidth = border * 2;
+        ctx.stroke();
+
+        // ✅ Clip inside & draw profile
+        ctx.save();
+        ctx.beginPath();
+        hexPoints.forEach(([x, y], i) =>
+          i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)
+        );
+        ctx.closePath();
+        ctx.clip();
+
+        ctx.drawImage(
+          profileImg,
+          hexX - hexW / 2,
+          hexY - hexH / 2,
+          hexW,
+          hexH
+        );
+        ctx.restore();
+
+        // ✅ Text below hexagon
+        ctx.fillStyle = "#fff";
+        ctx.textAlign = "center";
+        ctx.font = "600 1.8rem 'Poppins', sans-serif"; // custom font family
+        ctx.fillText("Gagan Bansode", w / 2, h * 0.84);
+
+        // ✅ Download PNG
+        const link = document.createElement("a");
+        link.download = "hexagon-frame.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      };
+    };
+  });
 </script>
+
 
   </body>
 </html>

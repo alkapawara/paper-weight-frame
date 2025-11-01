@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>T2C & TRIO - Hexagon Frame</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.css"/>
+
+    <style>
+      @font-face {
+        font-family: 'myfont';
+        src: url('./assets/MyriadPro-Bold_1.otf');
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'myfont';
+        background-color: transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      img#image-3 { display: none; }
+
+      .frame-main {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .frame2 {
+        position: relative;
+        width: 400px;
+        height: auto;
+      }
+
+      .frame2 img.frame-bg-main {
+        width: 100%;
+        display: block;
+      }
+
+      .top-img {
+        position: absolute;
+        top: 12%;
+        width: 260px;
+      }
+
+      .top-img img {
+        width: 100%;
+      }
+
+      .fr5-title {
+        position: absolute;
+        bottom: 12%;
+        text-align: center;
+        font-size: clamp(12px, 2vw, 15px);
+        color: #fff;
+        line-height: 1.8rem;
+      }
+
+      .fr5-title h3 {
+        font-size: clamp(1.5rem, 4vw, 2.02rem);
+        font-weight: 700;
+        text-transform: capitalize;
+        margin-bottom: -4px;
+      }
+
+      /* ✅ Hexagon with visible border */
+      .hexagon-border {
+        position: absolute;
+        top: 31%;
+        width: 186px;
+        height: 210px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(45deg, #00aaff, #0088cc);
+        clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+        padding: 5px;
+        box-sizing: border-box;
+      }
+
+      .hexagon-inner {
+        width: 100%;
+        height: 100%;
+        clip-path: inherit;
+        overflow: hidden;
+        background: #33917e;
+        position: relative;
+      }
+
+      .hexagon-inner img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* Mobile */
+      @media (max-width: 480px) {
+        .top-img { width: 173px; top: 12.95%; }
+        .hexagon-border { width: 120px; height: 127px; top: 32%; }
+        .fr5-title h3 { font-size: 1.2rem; }
+      }
+
+      button.btn.btn-primary {
+        background-color: #33917e;
+        border: 1px solid #fff;
+        box-shadow: 0 0 0 2px #38b79d;
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="frame-main" id="downloadframe">
+      <div class="frame2" id="frame-area">
+        <img src="./assets/bg-img.png" class="frame-bg-main"/>
+
+        <div class="top-img">
+          <img src="./assets/empact-img.png" alt="">
+        </div>
+
+        <!-- ✅ Hexagon Border + Image -->
+        <div class="hexagon-border" id="hexagon">
+          <div class="hexagon-inner">
+            <img id="profileImage" src="./assets/a.jpg" alt="Profile">
+          </div>
+        </div>
+
+        <div class="fr5-title">
+          <h3><span>Gagan Bansode</span></h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-group-custom mt-3">
+      <button id="crop-image" class="btn btn-primary">Crop Image</button>
+      <button id="save-frame" class="btn btn-primary">Save Frame</button>
+    </div>
+
+    <div class="demo">
+      <div class="image-wrapper" id="image-cropper">
+        <img id="image-3" src="./upload/251030041847-Empact.jpg" />
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const el = document.getElementById("image-cropper");
+      const croppieObj = new Croppie(el, {
+        viewport: { width: 200, height: 200, type: "square" },
+        boundary: { width: 300, height: 300 },
+        showZoomer: true,
+        enableOrientation: true,
+      });
+
+      croppieObj.bind({ url: "./upload/251030041847-Empact.jpg" });
+
+      // ✅ Crop Image
+      document.getElementById("crop-image").addEventListener("click", function () {
+        croppieObj.result({
+          type: "canvas",
+          size: { width: 300, height: 300 },
+          quality: 1,
+          format: "png"
+        }).then(function (resp) {
+          document.getElementById("profileImage").src = resp;
+          Swal.fire("Done!", "Image cropped successfully!", "success");
+        });
+      });
+
+      // ✅ Download Full Frame (as shown in browser)
+      document.getElementById("save-frame").addEventListener("click", function () {
+        const frame = document.getElementById("downloadframe");
+
+        html2canvas(frame, {
+          useCORS: true,
+          backgroundColor: null,
+          scale: 2,  // clearer image
+          logging: false
+        }).then(canvas => {
+          const link = document.createElement("a");
+          link.download = "hexagon-frame.png";
+          link.href = canvas.toDataURL("image/png");
+          link.click();
+        });
+      });
+    });
+    </script>
+  </body>
+</html>
