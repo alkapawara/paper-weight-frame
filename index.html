@@ -6,10 +6,11 @@
     <title>Hexagon Frame - Perfect Match</title>
 
     <style>
-           @font-face {
+      @font-face {
         font-family: 'myfont';
         src: url('./assets/MyriadPro-Bold_1.otf');
       }
+
       body {
         margin: 0;
         padding: 0;
@@ -27,7 +28,7 @@
         max-width: 520px;
         width: 100%;
         height: 520px;
-        background: url('./assets/bg-img.webp') no-repeat center/cover;
+        background: url('./assets/bg-img.png') no-repeat center/cover;
         overflow: hidden;
         border-radius: 50%;
       }
@@ -40,7 +41,6 @@
         transform: translateX(-50%);
       }
 
-      /* ✅ Same shape hexagon */
       .hexagon-border {
         position: absolute;
         top: 31%;
@@ -97,45 +97,36 @@
         background: #2a7a67;
       }
 
-     @media screen and (max-width: 420px) {
-.frame-main {
-    position: relative;
-    max-width: 520px;
-    width: 100%;
-    max-height: 520px;
-    height: auto;
-    aspect-ratio: 1 / 1; }
-
-    .top-img img {
-    max-width: 160px;
-    width: 100%;
-  }
-  .hexagon-border {
-    position: absolute;
-    top: 32%;
-    left: 50%;
-    transform: translateX(-50%);
-    max-width: 130px;
-    width: 100%;
-    height: 124px;
-    aspect-ratio: 1 / 1;
-  }
-    .fr5-title h3 {
-    font-size: 1.3rem;
-    margin: 0;
-}
-.fr5-title {
-  bottom: 13%;
-
-}
-           }
+      @media screen and (max-width: 420px) {
+        .frame-main {
+          width: 100%;
+          height: auto;
+          aspect-ratio: 1 / 1;
+        }
+        .top-img img {
+          max-width: 160px;
+          width: 100%;
+        }
+        .hexagon-border {
+          top: 32%;
+          max-width: 130px;
+          width: 100%;
+          height: 124px;
+        }
+        .fr5-title h3 {
+          font-size: 1.3rem;
+        }
+        .fr5-title {
+          bottom: 13%;
+        }
+      }
     </style>
   </head>
 
   <body>
     <div class="frame-main" id="downloadframe">
       <div class="top-img">
-        <img src="./assets/empact-img.webp" alt="Top Banner" />
+        <img src="./assets/empact-img.png" alt="Top Banner" />
       </div>
 
       <div class="hexagon-border">
@@ -150,95 +141,92 @@
     </div>
 
     <button id="save-frame">Save Frame</button>
-    <canvas id="canvas" width="520" height="520" style="display: none"></canvas>
+    <canvas id="canvas" width="520" height="520" style="display:none"></canvas>
 
- <script>
-  document.getElementById("save-frame").addEventListener("click", function () {
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
+    <script>
+      document.getElementById("save-frame").addEventListener("click", async () => {
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        const w = canvas.width;
+        const h = canvas.height;
 
-    const w = canvas.width;
-    const h = canvas.height;
+        // ✅ SAFE CORS ENABLED IMAGES
+        const bg = new Image();
+        const topImg = new Image();
+        const profileImg = new Image();
 
-    const bg = new Image();
-    const topImg = new Image();
-    const profileImg = new Image();
+        bg.crossOrigin = "anonymous";
+        topImg.crossOrigin = "anonymous";
+        profileImg.crossOrigin = "anonymous";
 
-    bg.src = "./assets/bg-img.webp";
-    topImg.src = "./assets/empact-img.webp";
-    profileImg.src = document.getElementById("profileImage").src;
+        bg.src = "./assets/bg-img.png";
+        topImg.src = "./assets/empact-img.png";
+        profileImg.src = document.getElementById("profileImage").src;
 
-    bg.onload = () => {git
-      ctx.drawImage(bg, 0, 0, w, h);
+        await Promise.all([
+          new Promise((res) => (bg.onload = res)),
+          new Promise((res) => (topImg.onload = res)),
+          new Promise((res) => (profileImg.onload = res))
+        ]);
 
-      topImg.onload = () => {
-        // ✅ Keep exact image ratio like browser
+        // Background
+        ctx.drawImage(bg, 0, 0, w, h);
+
+        // Top impact image
         const impactWidth = 260;
         const impactHeight = (topImg.height / topImg.width) * impactWidth;
         const impactX = (w - impactWidth) / 2;
         const impactY = h * 0.12;
         ctx.drawImage(topImg, impactX, impactY, impactWidth, impactHeight);
 
-        // ✅ Slightly lower hexagon to match browser (was 0.47 before)
+        // Hexagon
         const hexX = w / 2;
-        const hexY = h * 0.51; // move it a bit lower
+        const hexY = h * 0.51;
         const hexW = 200;
         const hexH = 210;
         const border = 5;
 
-        // ✅ Draw hexagon border
         const hexPoints = [
           [hexX, hexY - hexH / 2],
-          [hexX + (hexW * 0.45), hexY - (hexH * 0.25)],
-          [hexX + (hexW * 0.45), hexY + (hexH * 0.25)],
+          [hexX + hexW * 0.45, hexY - hexH * 0.25],
+          [hexX + hexW * 0.45, hexY + hexH * 0.25],
           [hexX, hexY + hexH / 2],
-          [hexX - (hexW * 0.45), hexY + (hexH * 0.25)],
-          [hexX - (hexW * 0.45), hexY - (hexH * 0.25)],
+          [hexX - hexW * 0.45, hexY + hexH * 0.25],
+          [hexX - hexW * 0.45, hexY - hexH * 0.25],
         ];
 
         ctx.beginPath();
-        hexPoints.forEach(([x, y], i) =>
-          i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)
-        );
+        hexPoints.forEach(([x, y], i) => (i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)));
         ctx.closePath();
         ctx.strokeStyle = "#33917e";
         ctx.lineWidth = border * 2;
         ctx.stroke();
 
-        // ✅ Clip inside & draw profile
         ctx.save();
         ctx.beginPath();
-        hexPoints.forEach(([x, y], i) =>
-          i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)
-        );
+        hexPoints.forEach(([x, y], i) => (i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)));
         ctx.closePath();
         ctx.clip();
-
-        ctx.drawImage(
-          profileImg,
-          hexX - hexW / 2,
-          hexY - hexH / 2,
-          hexW,
-          hexH
-        );
+        ctx.drawImage(profileImg, hexX - hexW / 2, hexY - hexH / 2, hexW, hexH);
         ctx.restore();
 
-        // ✅ Text below hexagon
+        // Text
         ctx.fillStyle = "#fff";
         ctx.textAlign = "center";
-        ctx.font = "600 1.8rem 'Poppins', sans-serif"; // custom font family
-        ctx.fillText("Gagan Bansode", w / 2, h * 0.84);
+        ctx.font = "bold 28px 'myfont', sans-serif";
+        ctx.fillText("Gagan Bansode", w / 2, h * 0.82);
 
-        // ✅ Download PNG
-        const link = document.createElement("a");
-        link.download = "hexagon-frame.png";
-        link.href = canvas.toDataURL("image/png");
-        link.click();
-      };
-    };
-  });
-</script>
-
-
+        // ✅ Download safely
+        try {
+          const link = document.createElement("a");
+          link.download = "hexagon-frame.png";
+          link.href = canvas.toDataURL("image/png");
+          link.click();
+        } catch (err) {
+          console.error("⚠️ Download failed due to CORS:", err);
+          alert("Run this file using Live Server or enable CORS for images.");
+        }
+      });
+    </script>
   </body>
 </html>
